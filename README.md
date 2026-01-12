@@ -44,6 +44,4 @@ aks_config = {
 }
 ```
 
-# Examples
 
-*Examples to follow*
