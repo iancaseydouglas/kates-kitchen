@@ -1,4 +1,11 @@
-# AKS Cluster a'la carte
+
+# K8s Kitchen
+
+K8s Kitchen offers Azure Kubernetes a'la carte.
+
+[Nodepool Short Order Kitchen](./azure-aks-knodepool#readme)
+
+[Cluster a'la carte](./azure-aks-kontrol#readme)
 
 These Terraform modules build an Azure Kubernetes Service (AKS) cluster master [control plane](https://github.com/iancaseydouglas/modulosos/tree/bcb9a1ecd6156300f971396a656a9256906d3ee9/azure-aks-kontrol) and minion [node pools](https://github.com/iancaseydouglas/modulosos/tree/bcb9a1ecd6156300f971396a656a9256906d3ee9/azure-aks-knodepool).
 
