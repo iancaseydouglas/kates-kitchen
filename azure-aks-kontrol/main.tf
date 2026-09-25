@@ -60,11 +60,11 @@ resource "azurerm_kubernetes_cluster" "this" {
       gpu_instance                  = default_node_pool.value.gpu_instance
       host_group_id                 = default_node_pool.value.host_group_id
       kubelet_disk_type             = default_node_pool.value.kubelet_disk_type
-      max_count                     = 5
-      max_pods                      = 30
-      min_count                     = 2
-      node_count                    = 3
-      auto_scaling_enabled          = true
+      max_count                     = default_node_pool.value.max_count
+      max_pods                      = default_node_pool.value.max_pods
+      min_count                     = default_node_pool.value.min_count
+      node_count                    = default_node_pool.value.node_count
+      auto_scaling_enabled          = default_node_pool.value.auto_scaling_enabled
       node_labels                   = default_node_pool.value.node_labels
       node_public_ip_prefix_id      = default_node_pool.value.node_public_ip_prefix_id
       only_critical_addons_enabled  = default_node_pool.value.only_critical_addons_enabled
@@ -76,7 +76,7 @@ resource "azurerm_kubernetes_cluster" "this" {
       proximity_placement_group_id  = default_node_pool.value.proximity_placement_group_id
       scale_down_mode               = default_node_pool.value.scale_down_mode
       snapshot_id                   = default_node_pool.value.snapshot_id
-      temporary_name_for_rotation   = length("system${random_string.default_nodepool_rotation.result}") > 12 ? substr("system${random_string.default_nodepool_rotation.result}") : "system${random_string.default_nodepool_rotation.result}"
+      temporary_name_for_rotation   = substr("system${random_string.default_nodepool_rotation.result}", 0, 12)
       type                          = default_node_pool.value.type
       ultra_ssd_enabled             = default_node_pool.value.ultra_ssd_enabled
       vnet_subnet_id                = default_node_pool.value.vnet_subnet_id
@@ -98,7 +98,7 @@ resource "azurerm_kubernetes_cluster" "this" {
   dynamic "network_profile" {
     for_each = local.final_config.network_profile != null ? [local.final_config.network_profile] : []
     content {
-      network_plugin      = "azure"
+      network_plugin      = network_profile.value.network_plugin
       network_policy      = network_profile.value.network_policy
       network_mode        = network_profile.value.network_mode
       network_plugin_mode = network_profile.value.network_plugin_mode
@@ -107,8 +107,8 @@ resource "azurerm_kubernetes_cluster" "this" {
       pod_cidr            = network_profile.value.pod_cidr
       pod_cidrs           = network_profile.value.pod_cidrs
       service_cidrs       = network_profile.value.service_cidrs
-      service_cidr        = "10.201.119.0/24"
-      dns_service_ip      = "10.201.119.10"
+      service_cidr        = network_profile.value.service_cidr
+      dns_service_ip      = network_profile.value.dns_service_ip
       ip_versions         = network_profile.value.ip_versions
       load_balancer_sku   = network_profile.value.load_balancer_sku
     }

@@ -8,7 +8,7 @@ terraform {
     }
     deepmerge = {
       source  = "isometry/deepmerge"
-      version = ">= 0.2.2"
+      version = ">= 1.0.0"
     }
     random = {
       source  = "hashicorp/random"

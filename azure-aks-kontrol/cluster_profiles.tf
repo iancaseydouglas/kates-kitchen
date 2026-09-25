@@ -65,9 +65,9 @@ locals {
         max_count            = 5
         node_count           = 3
       }
+      sku_tier     = "Standard"
+      support_plan = "KubernetesOfficial"
     }
-    sku_tier     = "Standard"
-    support_plan = "KubernetesOfficial"
     advanced = {
       default_node_pool = {
         name                 = "system"

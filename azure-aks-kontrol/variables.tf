@@ -53,7 +53,7 @@ variable "aks_config" {
       vm_size                       = optional(string)
       capacity_reservation_group_id = optional(string)
       custom_ca_trust_enabled       = optional(bool)
-      enable_auto_scaling           = optional(bool)
+      auto_scaling_enabled          = optional(bool)
       enable_host_encryption        = optional(bool)
       enable_node_public_ip         = optional(bool)
       fips_enabled                  = optional(bool)

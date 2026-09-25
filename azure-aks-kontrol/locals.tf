@@ -9,13 +9,13 @@ locals {
     run_command_enabled              = true
 
     default_node_pool = {
-      name                = "system"
-      vm_size             = local.vms.medium
-      os_sku              = "AzureLinux"
-      enable_auto_scaling = true
-      min_count           = 2
-      max_count           = 5
-      node_count          = 3
+      name                 = "system"
+      vm_size              = local.vms.medium
+      os_sku               = "AzureLinux"
+      auto_scaling_enabled = true
+      min_count            = 2
+      max_count            = 5
+      node_count           = 3
     }
 
     # default_node_pool = {
@@ -68,12 +68,11 @@ locals {
   )
 
   # Finally, apply user-provided configuration
-  final_config = provider::deepmerge::mergo(var.aks_config, local.feature_config)
+  final_config = provider::deepmerge::mergo(local.feature_config, var.aks_config, "no_null_override")
 
   # Generate a unique suffix for the cluster name
   cluster_suffix = random_string.cluster_suffix.result
-  # full_cluster_name = "${local.final_config.name}-${local.cluster_suffix}"
-  full_cluster_name = "boomi-${local.cluster_suffix}"
+  full_cluster_name = "${local.final_config.name}-${local.cluster_suffix}"
 }
 
 
